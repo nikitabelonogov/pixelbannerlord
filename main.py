@@ -1,5 +1,6 @@
 #!python
 from PIL import Image
+import argparse
 
 colors = [
     (181, 122, 30, 1),
@@ -206,24 +207,30 @@ def find_most_similar_color(color):
     return similar_color_index
 
 
-if __name__ == "__main__":
+def image2banner(image_path):
     background_figure = figure_string(width=1500, height=1500, primary_color=116, secondary_color=116)
     figures = [background_figure, figure_string(figure=505)]
 
-    rows_count = 16  # 20
-    columns_count = 16  # 20
     figure_size = 50
 
-    im = Image.open("/Users/nbelonogov/Desktop/Untitled.png")
-    pix = im.load()
-    print im.size
-    print pix[1, 1]
+    image = Image.open(image_path)
+    pixels = image.load()
+    rows_count, columns_count = image.size
 
     for row_index in range(rows_count):
         for column_index in range(rows_count):
             x = row_index * figure_size + 764
             y = column_index * figure_size + 764
-            color = find_most_similar_color(pix[row_index, column_index])
-            figures.append(figure_string(figure=505, x=x, y=y, width=figure_size, height=figure_size, primary_color=color, secondary_color=0))
+            color = find_most_similar_color(pixels[row_index, column_index])
+            figures.append(
+                figure_string(figure=505, x=x, y=y, width=figure_size, height=figure_size, primary_color=color,
+                              secondary_color=0))
 
-    print(".".join(figures))
+    return ".".join(figures)
+
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description='Convert an image to the Mount&Blade II Bannerlord banner.')
+    parser.add_argument('image_path', type=str, help='path to the image')
+    args = parser.parse_args()
+    print image2banner(args.image_path)
