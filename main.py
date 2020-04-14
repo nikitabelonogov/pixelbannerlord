@@ -219,8 +219,8 @@ def image2banner(image_path):
 
     for row_index in range(rows_count):
         for column_index in range(rows_count):
-            x = row_index * figure_size + 764
-            y = column_index * figure_size + 764
+            x = row_index * figure_size + 764/2
+            y = column_index * figure_size + 764/2
             color = find_most_similar_color(pixels[row_index, column_index])
             figures.append(
                 figure_string(figure=505, x=x, y=y, width=figure_size, height=figure_size, primary_color=color,
