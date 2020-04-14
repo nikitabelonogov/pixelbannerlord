@@ -1,4 +1,5 @@
 #!python
+from PIL import Image
 
 colors = [
     (181, 122, 30, 1),
@@ -187,18 +188,42 @@ def figure_string(
     )
 
 
+def color_distance(left, right):
+    r_distance = abs(left[0] - right[0])
+    g_distance = abs(left[1] - right[1])
+    b_distance = abs(left[2] - right[2])
+    return r_distance + g_distance + b_distance
+
+
+def find_most_similar_color(color):
+    similar_color_index = 0
+    min_distance = color_distance(color, colors[similar_color_index])
+    for existing_color_index, existing_color in enumerate(colors):
+        distance = color_distance(color, existing_color)
+        if distance <= min_distance:
+            min_distance = distance
+            similar_color_index = existing_color_index
+    return similar_color_index
+
+
 if __name__ == "__main__":
     background_figure = figure_string(width=1500, height=1500, primary_color=116, secondary_color=116)
     figures = [background_figure, figure_string(figure=505)]
 
-    rows_count = 5  # 20
-    columns_count = 5  # 20
+    rows_count = 16  # 20
+    columns_count = 16  # 20
     figure_size = 50
+
+    im = Image.open("/Users/nbelonogov/Desktop/Untitled.png")
+    pix = im.load()
+    print im.size
+    print pix[1, 1]
 
     for row_index in range(rows_count):
         for column_index in range(rows_count):
             x = row_index * figure_size + 764
             y = column_index * figure_size + 764
-            figures.append(figure_string(figure=505, x=x, y=y, width=figure_size, height=figure_size))
+            color = find_most_similar_color(pix[row_index, column_index])
+            figures.append(figure_string(figure=505, x=x, y=y, width=figure_size, height=figure_size, primary_color=color, secondary_color=0))
 
     print(".".join(figures))
