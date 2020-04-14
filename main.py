@@ -215,7 +215,7 @@ def image2banner(image_path):
     pixels = image.load()
     rows_count, columns_count = image.size
 
-    figure_size = 600 / columns_count
+    figure_size = 600 / rows_count
 
     for row_index in range(rows_count):
         for column_index in range(columns_count):
