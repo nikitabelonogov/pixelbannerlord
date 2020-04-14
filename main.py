@@ -211,11 +211,11 @@ def image2banner(image_path):
     background_figure = figure_string(width=1500, height=1500, primary_color=116, secondary_color=116)
     figures = [background_figure]
 
-    figure_size = 50
-
     image = Image.open(image_path)
     pixels = image.load()
     rows_count, columns_count = image.size
+
+    figure_size = 600/columns_count
 
     for row_index in range(rows_count):
         for column_index in range(rows_count):
