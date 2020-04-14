@@ -209,7 +209,7 @@ def find_most_similar_color(color):
 
 def image2banner(image_path):
     background_figure = figure_string(width=1500, height=1500, primary_color=116, secondary_color=116)
-    figures = [background_figure, figure_string(figure=505)]
+    figures = [background_figure]
 
     figure_size = 50
 
