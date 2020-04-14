@@ -218,7 +218,7 @@ def image2banner(image_path):
     figure_size = 600/columns_count
 
     for row_index in range(rows_count):
-        for column_index in range(rows_count):
+        for column_index in range(columns_count):
             x = row_index * figure_size + 764 - 300 + figure_size/2
             y = column_index * figure_size + 764 - 300 + figure_size/2
             color = find_most_similar_color(pixels[row_index, column_index])
