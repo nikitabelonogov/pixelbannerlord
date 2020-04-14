@@ -215,13 +215,16 @@ def image2banner(image_path):
     pixels = image.load()
     rows_count, columns_count = image.size
 
-    figure_size = 600/columns_count
+    figure_size = 600 / columns_count
 
     for row_index in range(rows_count):
         for column_index in range(columns_count):
-            x = row_index * figure_size + 764 - 300 + figure_size/2
-            y = column_index * figure_size + 764 - 300 + figure_size/2
-            color = find_most_similar_color(pixels[row_index, column_index])
+            original_pixel_color = pixels[row_index, column_index]
+            if original_pixel_color[3] == 0:
+                continue
+            x = row_index * figure_size + 764 - 300 + figure_size / 2
+            y = column_index * figure_size + 764 - 300 + figure_size / 2
+            color = find_most_similar_color(original_pixel_color)
             figures.append(
                 figure_string(figure=505, x=x, y=y, width=figure_size, height=figure_size, primary_color=color,
                               secondary_color=0))
